@@ -1,0 +1,210 @@
+<div class="container">
+    <h4 class="titulo">{{"OFERTAS" | translate}}</h4>
+    <div class="row botonNuevoProducto">
+        <a (click)="enviarOfertas()" class="botonNuevoProducto waves-effect waves-light btn"><i
+                class="material-icons iconoss">send</i></a>
+    </div>
+</div>
+
+
+<div class="row bodySubtitulo">
+    <div class="col l6">
+        <table *ngIf="productos != undefined" class="highlight">
+            <thead>
+                <tr>
+                    <th class="tablaCabecera2" colspan="7">
+                        <h5>{{"Productos" | translate}}</h5>
+                    </th>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <th class="tablaCabecera">{{"Producto" | translate}}</th>
+                    <th class="tablaCabecera">{{"Precio" | translate}}</th>
+                    <th class="tablaCabecera">{{"Descripcion" | translate}}</th>
+                    <th class="tablaCabecera"></th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let producto of productos | paginate: {
+                itemsPerPage: pageSize,
+                currentPage: p
+                };let i=index">
+                <td class="tablaFilas">
+                    <div *ngIf="idioma === '1'; then thenBlockEn else elseBlockEs"></div>
+                    <ng-template #thenBlockEn>{{ producto.producto_En }}</ng-template>
+                    <ng-template #elseBlockEs>{{ producto.producto }}</ng-template>
+                </td>
+                <td class="tablaFilas">{{producto.precio}}</td>
+                <td class="tablaFilas">
+                    <div *ngIf="idioma === '1'; then thenBlockDescEn else elseBlockDescEs"></div>
+                    <ng-template #thenBlockDescEn>{{ producto.descripcion_En }}</ng-template>
+                    <ng-template #elseBlockDescEs>{{ producto.descripcion }}</ng-template>
+                </td>
+                <td class="tablaFilas"><a (click)="addOferta(producto.id)"
+                        class="waves-effect waves-light btn btn-floating modal-trigger botonAcciones">
+                        <i class="material-icons iconoss">add</i></a></td>
+        </table>
+        <div class="container center-align">
+            <div class="row center-align">
+                <pagination-controls class="my-pagination" (pageChange)="p = ($event)"
+        previousLabel="{{ 'anterior' | translate }}"
+        nextLabel="{{ 'siguiente' | translate }}">
+    </pagination-controls>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col l6">
+        <table class="highlight">
+            <thead>
+                <tr>
+                    <th class="tablaCabecera2" colspan="7">
+                        <h5>{{"Seleccionados" | translate}}</h5>
+                    </th>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <th class="tablaCabecera">{{"Producto" | translate}}</th>
+                    <th class="tablaCabecera">{{"Precio Original" | translate}}</th>
+                    <th class="tablaCabecera">{{"Precio Con Descuento" | translate}}</th>
+                    <th class="tablaCabecera">{{"Duracion" | translate}}</th>
+                    <th class="tablaCabecera"></th>
+                </tr>
+            <tbody>
+                <tr *ngFor="let temp of ofertas; let i=index">
+                    <td class="tablaFilas">
+                        <div *ngIf="idioma === '1'; then thenBlockEn else elseBlockEs"></div>
+                        <ng-template #thenBlockEn>{{ temp.producto_En }}</ng-template>
+                        <ng-template #elseBlockEs>{{ temp.producto }}</ng-template>
+                    </td>
+                    <td class="tablaFilas">{{temp.precio}}</td>
+                    <td class="tablaFilas">{{temp.precioDescuento}}</td>
+                    <td class="tablaFilas">{{temp.duracion}}</td>
+                    <td class="tablaFilas"> <a (click)="eliminarPromo(temp.producto)"
+                            class="waves-effect waves-light btn modal-trigger botonAcciones">
+                            <i class="material-icons iconoss">cancel</i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+
+
+<div class="row bodySubtitulo">
+    <table class="striped">
+        <thead>
+            <tr>
+                <th class="tablaCabecera2" colspan="7">
+                    <h5>{{"Descuentos" | translate}}</h5>
+                    <a (click)="crearDescuento()"
+                        class="waves-effect waves-light btn btn-floating modal-trigger botonAcciones">
+                        <i class="material-icons iconoss">add</i></a>
+                </th>
+            </tr>
+        </thead>
+        <thead>
+            <tr>
+                <th class="tablaCabecera">{{"Id de descuento" | translate}}</th>
+                <th class="tablaCabecera">{{"Porcentaje de descuento" | translate}}</th>
+                <th class="tablaCabecera"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let descuento of descuentos; let i=index">
+                <td class="tablaFilas">{{descuento.id}}</td>
+                <td class="tablaFilas">% {{descuento.porcentaje}}</td>
+                <td class="tablaFilas"> <a (click)="eliminarDescuento(descuento.id)"
+                        class="waves-effect waves-light btn modal-trigger botonAcciones"><i
+                            class="material-icons iconoss">delete</i></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div id="modalAgregarOferta" class="col s4 modal modal-fixed-footer">
+    <div class="modal-content ModalContenido">
+        <h4>{{"Nueva Oferta" | translate}}</h4>
+        <form #FormularioEditarCajero="ngForm" class="formularios">
+            <div class="row">
+                <div class="col l1"></div>
+                <div class="col l10 input-field">
+                    <label>{{"Producto" | translate}}</label><br>
+                    <input [(ngModel)]="producto.producto" name="producto" disabled value="I am not editable"
+                        id="disabled" type="text" class="validate">
+                    <label for="disabled"></label>
+                </div>
+                <div class="col l1"></div>
+            </div>
+
+            <div class="row">
+                <div class="col l1"></div>
+                <div class="col l10 input-field">
+                    <label>{{"Precio" | translate}}</label><br>
+                    <input [(ngModel)]="producto.precio" name="precio" disabled value="I am not editable" id="disabled"
+                        type="text" class="validate">
+                    <label for="disabled"></label>
+                </div>
+                <div class="col l1"></div>
+            </div>
+
+            <div class="row">
+                <div class="col l1"></div>
+                <div class="col l10 input-field">
+                    <label>{{"Precio con descuento" | translate}} </label><br>
+                    <input [(ngModel)]="producto.precioDescuento" name="precioDescuento" disabled
+                        value="I am not editable" id="disabled" type="text" class="validate">
+                    <label for="disabled"></label>
+                </div>
+                <div class="col l1"></div>
+            </div>
+
+            <div class="row">
+                <div class="col l1"></div>
+                <div class="col l10 input-field">
+                    <label for="datepicker">{{"Duración de la Promoción (Días)" | translate}}</label><br>
+                    <input [(ngModel)]="oferta.duracion" name="producto" id="date" type="date" class="datepicker">
+                </div>
+                <div class="col l1"></div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer ModalFooter">
+        <button (click)="ConfirmarProducto(producto.producto)"
+            class="modal-close waves-effect waves-green btn ModalBotones"
+            [disabled]="FormularioEditarCajero.invalid">{{"Confirmar" | translate}}</button>
+        <a class="modal-close waves-effect waves-green btn ModalBotones">{{"Cancelar" | translate}}</a>
+    </div>
+</div>
+
+
+<div id="modalAgregarDescuento" class="col s4 modal modal-fixed-footer">
+    <div class="modal-content ModalContenido">
+        <h4>{{"Agregar Descuento" | translate}}</h4>
+        <form #FormularioEditarCajero="ngForm" class="formularios">
+            <div class="row">
+                <div class="col l1"></div>
+                <div class="col l10 input-field">
+                    <label>{{"Porcentaje" | translate}} </label><br>
+                    <input [(ngModel)]="nuevoDescuento.porcentaje" name="producto" value="I am not editable"
+                        id="disabled" type="text" class="validate">
+                    <label for="disabled"></label>
+                </div>
+                <div class="col l1"></div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer ModalFooter">
+        <button (click)="enviarDescuento(nuevoDescuento.porcentaje)"
+            class="modal-close waves-effect waves-green btn ModalBotones"
+            [disabled]="FormularioEditarCajero.invalid">{{"Confirmar" | translate}}</button>
+        <a class="modal-close waves-effect waves-green btn ModalBotones">{{"Cancelar" | translate}}</a>
+    </div>
+</div>

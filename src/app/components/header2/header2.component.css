@@ -1,0 +1,53 @@
+@import '~material-design-icons/iconfont/material-icons.css';
+
+.barraNavegacion {
+    background-color: #99CDCD;
+    position: fixed; /* Esto fija el navbar en la parte superior de la página */
+    top: 0; /* Establece el navbar en la parte superior */
+    width: 100%; /* Hace que el navbar ocupe todo el ancho de la ventana */
+    z-index: 1000; /* Asegura que el navbar esté por encima de otros elementos */
+    color: white; /* El color de texto que prefieras */
+}
+
+.barraNavegacionVendedor {
+    width: 200px;
+    text-align: center;
+    margin-left: 100px;
+}
+
+.barraNavegacionSub {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #CA99C5;
+}
+
+.barraNavegacionSubElementos {
+    width: 15%;
+}
+
+.exit {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: black;
+    width: 140px;
+}
+
+.flecha {
+    color: white;
+    text-align: center;
+}
+
+.iconoss {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 6px;
+}
+
+.iconoss2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

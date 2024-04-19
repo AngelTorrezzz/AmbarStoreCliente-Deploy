@@ -1,0 +1,33 @@
+<div class="row bodySubtitulo">
+    <div class="col l4"></div>
+    <div class="col l4">
+        <h4>{{"PRODUCTOS" | translate}}</h4>
+    </div>
+    <div class="col l4"></div>
+</div>
+
+<div class="row">
+    <div class="col l5"></div>
+    <div class="col l2">
+        <label>{{"Tipo de Producto" | translate}}</label>
+        <div class="input-field">
+            <select [(ngModel)]="tipoProducto.id" class="browser-default">
+                <ng-container *ngFor="let t of tiposProductos">                    
+                    <option [value]="t.id">
+                        <div *ngIf="idioma==='1'; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock>{{t.tipo_producto_En}}</ng-template>
+                        <ng-template #elseBlock>{{t.tipo_producto}}</ng-template>
+                    </option>
+                    </ng-container>
+            </select>
+            
+            
+            <!--<select [(ngModel)]='tipoProducto.id' class="browser-default">  CORRECTO
+                <option *ngFor="let t of tiposProductos" [value]="t.id">{{t.tipo_producto_En}}</option>
+            </select>-->
+        </div>
+        <p class="cardAñadir"><a (click)="seleccionarTipoProducto()" class="waves-effect waves-light btn cardAñadirBoton"><i
+            class="material-icons iconoss">border_all</i></a></p>
+    </div>
+    <div class="col l5"></div>
+</div>

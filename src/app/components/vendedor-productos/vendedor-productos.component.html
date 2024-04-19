@@ -1,0 +1,103 @@
+<div class="row bodySubtitulo">
+    <div class="col l4"></div>
+    <div class="col l4">
+        <h1>{{"PRODUCTOS" | translate}}</h1>
+    </div>
+    <div class="col l4"></div>
+</div>
+
+<div class="row">
+    <div class="col l5"></div>
+    <div class="col l2">
+        <span>{{"Buscar producto por tipo" | translate}}</span>
+        <div class="row">
+            <select [(ngModel)]="tipoProducto.id" class="browser-default">
+                <ng-container *ngFor="let t of tiposProductos">                    
+                    <option [value]="t.id">
+                        <div *ngIf="idioma==='1'; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock>{{t.tipo_producto_En}}</ng-template>
+                        <ng-template #elseBlock>{{t.tipo_producto}}</ng-template>
+                    </option>
+                    </ng-container>
+            </select>
+            <p class="cardAñadir"><a (click)="seleccionarTipoProducto()"
+                    class="waves-effect waves-light btn cardAñadirBoton"><i
+                        class="material-icons iconoss">border_all</i></a></p>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col s12 m4" *ngFor="let p of productos | paginate: {
+            itemsPerPage: pageSize,
+            currentPage: p
+            };let i=index">
+        <div class="card">
+
+            <div class="card-content">
+                <div *ngIf="idioma==='1'; then thenBlockEn else elseBlockEs"></div>
+                    <ng-template #thenBlockEn><p class="card-title activator grey-text text-darken-4 cardTitulo">{{p.producto_En}}</p></ng-template>
+                    <ng-template #elseBlockEs><p class="card-title activator grey-text text-darken-4 cardTitulo">{{p.producto}}</p></ng-template>
+                
+                    <div *ngIf="idioma==='1'; then thenBlockDescEn else elseBlockDescEs"></div>
+                    <ng-template #thenBlockDescEn><p class="cardPrecio">{{p.descripcion_En}}</p></ng-template>
+                    <ng-template #elseBlockDescEs><p class="cardPrecio">{{p.descripcion}}</p></ng-template>
+                <!--<br>
+                <br>-->
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img *ngIf="p.fotito == 1" width="200" height="200" src="{{liga}}/productos/{{p.id}}.jpg"
+                    alt="Foto de Producto">
+                    <img *ngIf="p.fotito == 0" width="200" height="200" src="{{liga}}/productos/0.jpg"
+                    alt="Foto de Producto">
+                </div>
+                <span class="card-title activator grey-text text-darken-4 cardPrecio">${{p.precio}}</span>
+                <div *ngIf="p.cantidad > 0; then thenCantidad else elseCantidad"></div>
+                <ng-template #thenCantidad>
+                    <label class="labelDisponibles">{{"Disponibles" | translate}}: {{p.cantidad}}</label>
+                    <p class="cardEditar"><!-- a (click)="ApartarProducto(p.id)"
+                                class="waves-effect waves-light btn modal-trigger botonAcciones"
+                                href="#modalApartarProducto">Apartar</a-->
+                        <a (click)="ComprarCantidad(p.id)"
+                            class="waves-effect waves-light btn modal-trigger botonAcciones"><i
+                                class="material-icons iconoss">add_shopping_cart</i></a>
+                    </p>
+                </ng-template>
+                <ng-template #elseCantidad>
+                    <br>
+                    <p class="labelNoDisponibles">{{"AGOTADO" | translate}}</p>
+                </ng-template>
+                <br>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<div class="row centrar espacio">
+    <pagination-controls class="my-pagination" (pageChange)="p = ($event)"
+        previousLabel="{{ 'anterior' | translate }}"
+        nextLabel="{{ 'siguiente' | translate }}">
+    </pagination-controls>
+</div>
+
+
+
+<div id="modalAgregar" class="modal">
+    <div class="modal-content">
+        <h4> {{"Agregar Producto" | translate}}</h4>
+        <div class="row">
+            <select [(ngModel)]="producto.cantidad_producto" class="browser-default">
+                <option *ngFor="let cantidades of getCantidadOptions()" [value]="cantidades">
+                    {{ cantidades }}
+                </option>
+            </select>
+        </div>
+        <div class="row">
+        </div>
+        <div class="modal-footer">
+            <a class="modal-close btn-flat">{{"Cancelar" | translate}}</a>
+            <a class="btn" (click)="AnadirCarrito()">{{"Agregar" | translate}}</a>
+        </div>
+    </div>
+</div>
