@@ -100,7 +100,7 @@
             <div class="modal-footer ModalFooter">
                 <button (click)="NuevoCajero()" class="modal-close waves-effect waves-black btn ModalBotones"
                     [disabled]="FormularioNuevoCajero.invalid">{{"Confirmar" | translate}}</button>
-                <a class="modal-close waves-effect waves-green btn ModalBotones">={{"Cancelar" | translate}}</a>
+                <a class="modal-close waves-effect waves-green btn ModalBotones">{{"Cancelar" | translate}}</a>
             </div>
         </div>
 
@@ -140,7 +140,7 @@
                     <td class="tablaFilas">{{cajero.nombres}}</td>
                     <td class="tablaFilas">{{cajero.apellidos}}</td>
                     <td class="tablaFilas">{{cajero.telefono}}</td>
-                    <td class="tablaFilas">{{cajero.id}}</td>
+                    <td class="tablaFilas">{{cajero.direccion}}</td>
                     <td class="tablaFilas"><a (click)="mostrarImagen(cajero)"
                             class="waves-effect waves-light btn btn-floating botonAcciones"><i
                                 class="material-icons iconoss">image</i></a><a (click)="EditarCajero(cajero.id)"
@@ -161,7 +161,7 @@
                     <td class="tablaFilas">{{cajero.nombres}}</td>
                     <td class="tablaFilas">{{cajero.apellidos}}</td>
                     <td class="tablaFilas">{{cajero.telefono}}</td>
-                    <td class="tablaFilas">{{cajero.id}}</td>
+                    <td class="tablaFilas">{{cajero.direccion}}</td>
                     <td class="tablaFilas"><a (click)="mostrarImagen(cajero)"
                             class="waves-effect waves-light btn btn-floating botonAcciones"><i
                                 class="material-icons iconoss">image</i></a><a (click)="EditarCajero(cajero.id)"
