@@ -8,13 +8,13 @@ export const environment = {
   //API_URI_CORREOS: "http://localhost:3001",
   //API_URI_IMAGENES: "http://localhost:3002"
 
-  //API_URI: 'https://ambar-index-vsrq.onrender.com/api',
-  //API_URI_CORREOS: "https://ambar-app.onrender.com",
-  //API_URI_IMAGENES: "https://ambar-imagen.onrender.com"
+  API_URI: 'https://ambar-index-vsrq.onrender.com/api',
+  API_URI_CORREOS: "https://ambar-app.onrender.com",
+  API_URI_IMAGENES: "https://ambar-imagen.onrender.com"
 
-  API_URI: 'http://3.141.51.166/api',
-  API_URI_CORREOS: "http://3.141.51.166:8080",
-  API_URI_IMAGENES: "http://3.141.51.166:8081"
+  //API_URI: 'http://3.141.51.166/api',
+  //API_URI_CORREOS: "http://3.141.51.166:8080",
+  //API_URI_IMAGENES: "http://3.141.51.166:8081"
 };
 
 /*
